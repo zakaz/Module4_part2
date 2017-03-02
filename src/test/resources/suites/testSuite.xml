@@ -7,7 +7,7 @@
     </groups>
     <test name="Exceptions">
         <classes>
-            <class name="seleniumTestsPackage.TestWebPage_1">
+            <class name="Selenium_part_2.YaMailTest">
                 <methods>
                     <include name="openWebPage" />
                     <include name="enterTheMail" />

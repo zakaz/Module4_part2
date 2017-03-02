@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Zakir_Mustafin on 2/3/2017.
  */
-public class YaMailTest extends YaMailAbstract{
+public class YaMailTest{
     private static final String LOGIN = "samsamitch1@yandex.ru";
     private static final String PASSWORD = "TestNG_password";
     private static final String START_URL = "https://mail.yandex.ru/";
@@ -27,9 +27,6 @@ public class YaMailTest extends YaMailAbstract{
     private static final String SUBJECTFORLETTER = String.valueOf(System.currentTimeMillis());
     private static final String TEXTFORLETTER = "Мама мыла раму!!!";
 
-    public YaMailTest(WebDriver driver) {
-        super(driver);
-    }
 
     @BeforeClass(description = "Start browser")
     public void startBrowser() {
@@ -37,7 +34,7 @@ public class YaMailTest extends YaMailAbstract{
 //        driver = YaMailAbstract.getDriver();
 //        driver = new ChromeDriver();
 //        driver.get(START_URL);
-        getDriver().get(START_URL);
+        YaMailAbstract.getDriver().get(START_URL);
 //        WebDriverWait wait = new WebDriverWait(driver, 10);
 //        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@type='submit']")));
 
@@ -54,7 +51,7 @@ public class YaMailTest extends YaMailAbstract{
     @Test(description = "Check valid Title")
     public void checkTitle(){
         String expectedTitle = "Яндекс.Почта — бесплатная электронная почта";
-        String actualTitle =  getDriver().getTitle();
+        String actualTitle =  YaMailAbstract.getDriver().getTitle();
         Assert.assertEquals(actualTitle, expectedTitle);
     }
 

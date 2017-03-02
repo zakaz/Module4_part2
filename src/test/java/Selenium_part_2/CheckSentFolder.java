@@ -24,10 +24,10 @@ public class CheckSentFolder extends YaMailAbstract {
     }
 
     public boolean goToSentFolderCheckTheLetterExsist(String subject){
-        wait = new WebDriverWait(driver, 10);
+        wait = new WebDriverWait(getDriver(), 10);
         subjectElement = By.xpath("//span[contains(@title, '" +subject+ "')]");
         sentButton.click();
         wait.until(ExpectedConditions.titleIs("Отправленные — Яндекс.Почта"));
-        return driver.findElement(subjectElement).isDisplayed();
+        return getDriver().findElement(subjectElement).isDisplayed();
     }
 }

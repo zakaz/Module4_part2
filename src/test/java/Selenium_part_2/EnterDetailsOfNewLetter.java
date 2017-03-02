@@ -30,7 +30,7 @@ public class EnterDetailsOfNewLetter extends YaMailAbstract{
     }
 
     public PopUpWarningWindow enterDetailsOfTheLetter(String address, String subject, String textOfMail){
-        JavascriptExecutor executor = ((JavascriptExecutor) driver);
+        JavascriptExecutor executor = ((JavascriptExecutor) getDriver());
 
         addressForSending.sendKeys(address);
         subjectForLetter.sendKeys(subject);
@@ -40,7 +40,7 @@ public class EnterDetailsOfNewLetter extends YaMailAbstract{
 
 
 
-        return new  PopUpWarningWindow(driver);
+        return new  PopUpWarningWindow(getDriver());
     }
 
     public boolean sendButtonExsist(){

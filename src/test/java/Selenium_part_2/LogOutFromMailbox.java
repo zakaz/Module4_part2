@@ -28,7 +28,7 @@ public class LogOutFromMailbox extends YaMailAbstract {
     }
 
     public void logOut(){
-        wait = new WebDriverWait(driver, 10);
+        wait = new WebDriverWait(getDriver(), 10);
         clickOnUserImage.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("b-user-dropdown-content")));
         clickOnExitButton.click();

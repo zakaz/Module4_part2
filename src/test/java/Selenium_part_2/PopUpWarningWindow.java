@@ -18,7 +18,7 @@ public class PopUpWarningWindow extends YaMailAbstract{
 
     public CheckDraftFolder savingLetterToDraft(){
         saveButtonExsist.click();
-        return new CheckDraftFolder(driver);
+        return new CheckDraftFolder(getDriver());
     }
 
     public boolean saveButtonExsist(){

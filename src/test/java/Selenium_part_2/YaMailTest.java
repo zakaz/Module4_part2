@@ -30,23 +30,11 @@ public class YaMailTest{
 
     @BeforeClass(description = "Start browser")
     public void startBrowser() {
-//        System.setProperty("webdriver.chrome.driver", "C:\\Users\\zakir_mustafin@epam.com\\AppData\\Local\\Google\\Chrome\\Application\\chromedriver.exe");
-//        driver = YaMailAbstract.getDriver();
-//        driver = new ChromeDriver();
-//        driver.get(START_URL);
         YaMailAbstract.getDriver().get(START_URL);
-//        WebDriverWait wait = new WebDriverWait(driver, 10);
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@type='submit']")));
 
-        getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        getDriver().manage().window().maximize();
+        YaMailAbstract.getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        YaMailAbstract.getDriver().manage().window().maximize();
     }
-
-//    @BeforeClass(dependsOnMethods = "startBrowser", description = "Add implicit wait and maximize window")
-//    public void addImplicitly() {
-//        getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-//        getDriver().manage().window().maximize();
-//    }
 
     @Test(description = "Check valid Title")
     public void checkTitle(){
@@ -58,62 +46,62 @@ public class YaMailTest{
     @Test(dependsOnMethods = "checkTitle", description = "Login to Mail.Yandex account")
     public void loginToYaMail() {
         // Login via user-defined method
-        new SignInPage(getDriver()).loginToYaMail(LOGIN, PASSWORD);
+        new SignInPage(YaMailAbstract.getDriver()).loginToYaMail(LOGIN, PASSWORD);
 
         // Verify the login procedure was correct
-        Assert.assertTrue(new InboxMailPage(getDriver()).loginIsCorrect(), "Looks you are NOT logged in correctly!");
+        Assert.assertTrue(new InboxMailPage(YaMailAbstract.getDriver()).loginIsCorrect(), "Looks you are NOT logged in correctly!");
         System.out.println("Login was completed correctly.");
     }
 
     @Test(dependsOnMethods = "loginToYaMail", description = "Create new Letter")
     public void createNewLetter() throws InterruptedException {
         // Login via user-defined method
-        new InboxMailPage(getDriver()).createNewMail();
+        new InboxMailPage(YaMailAbstract.getDriver()).createNewMail();
 
         // Verify the login procedure was correct
-        Assert.assertTrue(new EnterDetailsOfNewLetter(getDriver()).sendButtonExsist(), "Looks you are on the wrong Page!");
+        Assert.assertTrue(new EnterDetailsOfNewLetter(YaMailAbstract.getDriver()).sendButtonExsist(), "Looks you are on the wrong Page!");
         System.out.println("Window for creating new Mail opened correctly.");
     }
 
     @Test(dependsOnMethods = "createNewLetter", description = "Type address, subject and main Text of the letter")
     public void typeAddressSubjTextOfLetter() {
-        new EnterDetailsOfNewLetter(getDriver()).enterDetailsOfTheLetter(ADDRESS, SUBJECTFORLETTER, TEXTFORLETTER);
+        new EnterDetailsOfNewLetter(YaMailAbstract.getDriver()).enterDetailsOfTheLetter(ADDRESS, SUBJECTFORLETTER, TEXTFORLETTER);
 
         // Verify the login procedure was correct
-        Assert.assertTrue(new PopUpWarningWindow(getDriver()).saveButtonExsist(), "Pop-up window didn't appear with Save button");
+        Assert.assertTrue(new PopUpWarningWindow(YaMailAbstract.getDriver()).saveButtonExsist(), "Pop-up window didn't appear with Save button");
         System.out.println("Save button displayed correctly.");
     }
 
     @Test(dependsOnMethods = "typeAddressSubjTextOfLetter", description = "click on save button, check letter in draft")
     public void clickSaveButtonCheckLetterInDraft(){
-        new PopUpWarningWindow(getDriver()).savingLetterToDraft().clickOnDraftButton();
-        Assert.assertTrue(new CheckDraftFolder(getDriver()).checkLetterExsistInDraft(ADDRESS, SUBJECTFORLETTER, TEXTFORLETTER));
+        new PopUpWarningWindow(YaMailAbstract.getDriver()).savingLetterToDraft().clickOnDraftButton();
+        Assert.assertTrue(new CheckDraftFolder(YaMailAbstract.getDriver()).checkLetterExsistInDraft(ADDRESS, SUBJECTFORLETTER, TEXTFORLETTER));
         System.out.println("Letter saved in draft folder!");
     }
 
     @Test(dependsOnMethods = "clickSaveButtonCheckLetterInDraft", description = "send letter and check draft again")
     public void sendLetterCheckDraftAgain(){
-        new SendingMail(getDriver()).sendMail(SUBJECTFORLETTER);
-        Assert.assertFalse(new SendingMail(getDriver()).checkThatSentLetterDisapearedFromDraft());
+        new SendingMail(YaMailAbstract.getDriver()).sendMail(SUBJECTFORLETTER);
+        Assert.assertFalse(new SendingMail(YaMailAbstract.getDriver()).checkThatSentLetterDisapearedFromDraft());
         System.out.println("Letter disapeared from draft folder!");
     }
 
     @Test(dependsOnMethods = "sendLetterCheckDraftAgain", description = "check that letter exsist in sent folder")
     public void checkLetterInSentFolder(){
-        Assert.assertTrue(new CheckSentFolder(getDriver()).goToSentFolderCheckTheLetterExsist(SUBJECTFORLETTER));
+        Assert.assertTrue(new CheckSentFolder(YaMailAbstract.getDriver()).goToSentFolderCheckTheLetterExsist(SUBJECTFORLETTER));
         System.out.println("Letter exsist in sent folder!");
     }
 
     @Test(dependsOnMethods = "checkLetterInSentFolder", description = "Exit and check that exit true")
     public void exitAndCheckThatExitDone(){
-        new LogOutFromMailbox(getDriver()).logOut();
-        Assert.assertTrue(new LogOutFromMailbox(getDriver()).checkThatExitTrue());
+        new LogOutFromMailbox(YaMailAbstract.getDriver()).logOut();
+        Assert.assertTrue(new LogOutFromMailbox(YaMailAbstract.getDriver()).checkThatExitTrue());
         System.out.println("LogOut done successfully!");
     }
 
     @AfterClass(description = "Stop Browser")
     public void stopBrowser() {
-        driver.quit();
+        YaMailAbstract.driver.quit();
     }
 
 }

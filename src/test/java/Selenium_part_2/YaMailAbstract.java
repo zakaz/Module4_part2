@@ -5,9 +5,14 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,11 +20,11 @@ import java.util.concurrent.TimeUnit;
  * Created by Zakir_Mustafin on 2/3/2017.
  */
 public abstract class YaMailAbstract {
-    protected WebDriver driver;
+    protected static WebDriver driver;
 
     protected String addressOfLetter = "samsamitch1@yandex.ru";
     protected String textOfLetter = "Мама мыла раму!!!";
-    private static final String START_URL = "https://mail.yandex.ru/";
+    protected String START_URL = "https://mail.yandex.ru/";
 
 
 
@@ -28,21 +33,21 @@ public abstract class YaMailAbstract {
         PageFactory.initElements(this.driver, this);
     }
 
-    public WebDriver getDriver() {
+    public static WebDriver getDriver() {
         if (driver == null) {
             setDriver();
         }
         return driver;
     }
 
-    private void setDriver() {
+    private static void setDriver() {
 //         System.setProperty("webdriver.ie.driver", "C:\\Data\\For_grid\\IEDriverServer.exe");
-//         DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
+//        driver = new InternetExplorerDriver();
 //
 //		 System.setProperty("webdriver.gecko.driver", "C:\\Data\\For_grid\\geckodriver.exe");
-//		 DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-//
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\zakir_mustafin@epam.com\\AppData\\Local\\Google\\Chrome\\Application\\chromedriver.exe");
+//        driver = new FirefoxDriver();
+
+        System.setProperty("webdriver.chrome.driver", "C:\\Data\\For_grid\\chromedriver.exe");
         driver = new ChromeDriver();
     }
 
@@ -60,17 +65,4 @@ public abstract class YaMailAbstract {
         return driver.findElements(locator).size() > 0;
     }
 
-    @BeforeClass(description = "Start browser")
-    public void startBrowser() {
-//        System.setProperty("webdriver.chrome.driver", "C:\\Users\\zakir_mustafin@epam.com\\AppData\\Local\\Google\\Chrome\\Application\\chromedriver.exe");
-//        driver = YaMailAbstract.getDriver();
-//        driver = new ChromeDriver();
-//        driver.get(START_URL);
-        getDriver().get(START_URL);
-//        WebDriverWait wait = new WebDriverWait(driver, 10);
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@type='submit']")));
-
-        getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        getDriver().manage().window().maximize();
-    }
 }

@@ -29,20 +29,20 @@ public class SendingMail extends YaMailAbstract{
 
 
     public CheckSentFolder sendMail(String subject){
-        wait = new WebDriverWait(driver, 10);
+        wait = new WebDriverWait(getDriver(), 10);
         subjectElement = By.xpath("//span[contains(@title, '" +subject+ "')]");
-        driver.findElement(subjectElement).click();
+        getDriver().findElement(subjectElement).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Отправить']")));
         sendButton.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".mail-Done-Title.js-title-info")));
         clickDraftButton.click();
         wait.until(ExpectedConditions.titleIs("Черновики — Яндекс.Почта"));
-        return new CheckSentFolder(driver);
+        return new CheckSentFolder(getDriver());
     }
 
     public boolean checkThatSentLetterDisapearedFromDraft(){
         try {
-            return driver.findElement(subjectElement).isDisplayed();
+            return getDriver().findElement(subjectElement).isDisplayed();
         } catch (NullPointerException e){
             System.out.println("Didn't find such subject in draft folder" + e);
             return false;

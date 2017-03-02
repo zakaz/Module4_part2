@@ -25,7 +25,7 @@ public class CheckDraftFolder extends YaMailAbstract{
     protected SendingMail clickOnDraftButton(){
         draftButton.click();
 //        wait.until(ExpectedConditions.titleIs("Черновики — Яндекс.Почта"));
-        return new SendingMail(driver);
+        return new SendingMail(getDriver());
     }
 
     public boolean checkLetterExsistInDraft(String address, String subject, String textOfMail){
@@ -33,8 +33,8 @@ public class CheckDraftFolder extends YaMailAbstract{
         subjectElement = By.xpath("//span[text()='" + subject + "']");
         textElement = By.xpath("//span[text()='" +textOfMail+ "']");
 
-        if (driver.findElement(addressElement).isDisplayed() && driver.findElement(subjectElement).isDisplayed() &&
-                driver.findElement(textElement).isDisplayed()){
+        if (getDriver().findElement(addressElement).isDisplayed() && getDriver().findElement(subjectElement).isDisplayed() &&
+                getDriver().findElement(textElement).isDisplayed()){
             return true;
         } else return false;
     }

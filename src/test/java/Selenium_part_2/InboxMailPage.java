@@ -35,21 +35,7 @@ public class InboxMailPage extends YaMailAbstract{
 
     public EnterDetailsOfNewLetter createNewMail() throws InterruptedException {
         Thread.sleep(3000);
-//        Actions actions = new Actions(driver);
-//        Action dragAndDropSomeLetter = actions.dragAndDrop(draggable, droppable).build();
-//        dragAndDropSomeLetter.perform();
 
-        Actions builder = new Actions(getDriver());
-        Action dragAndDrop = builder.moveToElement(draggable)
-                .clickAndHold(draggable)
-                .moveToElement(droppable)
-                .release(droppable)
-                .build();
-        dragAndDrop.perform();
-
-        Thread.sleep(3000);
-        builder.contextClick(elementForContexClick).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).build().perform();
-        Thread.sleep(5000);
 
         highlightElement(getDriver(), buttonCreateNewLetter);
         buttonCreateNewLetter.click();
